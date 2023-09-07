@@ -10,10 +10,12 @@
     ansible.builtin.yum:
       name: httpd
       state: present
-  
-  - name: Copie du projet gatsby
+
+  - name: Sélection du répertoire de travail
     shell:
       chdir: ~/apache-controller
+  
+  - name: Copie du projet gatsby
     ansible.builtin.copy:
       src: ressources/projet-gatsby/public/
       dest: /var/www/html/
