@@ -13,8 +13,8 @@
 
   - name: Sélection du répertoire de travail
     shell:
-      chdir: ~/apache-controller
-  
+      cmd: cd ~/ansible-controller
+    
   - name: Copie du projet gatsby
     ansible.builtin.copy:
       src: ressources/projet-gatsby/public/
