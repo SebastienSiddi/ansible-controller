@@ -13,7 +13,7 @@
 
   - name: Sélection du répertoire de travail
     shell:
-      cmd: cd ~/ansible-controller
+      cmd: pwd
     
   - name: Copie du projet gatsby
     ansible.builtin.copy:
