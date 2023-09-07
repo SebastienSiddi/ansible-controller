@@ -12,8 +12,10 @@
       state: present
   
   - name: Copie du projet gatsby
+    shell:
+      chdir: ~/apache-controller
     ansible.builtin.copy:
-      src: ./ressources/projet-gatsby/public/
+      src: ressources/projet-gatsby/public/
       dest: /var/www/html/
       owner: apache
       group: apache
