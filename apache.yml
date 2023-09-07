@@ -13,7 +13,7 @@
   
   - name: Copie du projet gatsby
     ansible.builtin.copy:
-      src: ressources/projet-gatsby/public/*
+      src: /home/ec2-user/ansible-controller/ressources/projet-gatsby/public
       dest: /var/www/html/
       owner: apache
       group: apache
