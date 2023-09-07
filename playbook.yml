@@ -1,6 +1,6 @@
 - name: Installation de gatsby-cli
 
-  hosts: targets-ec2
+  hosts: ec2
 
   become: true
 
