@@ -11,13 +11,9 @@
       name: httpd
       state: present
 
-  - name: Sélection du répertoire de travail
-    shell:
-      cmd: pwd
-    
   - name: Copie du projet gatsby
     ansible.builtin.copy:
-      src: ressources/projet-gatsby/public/
+      src: ansible-controller/ressources/projet-gatsby/public/
       dest: /var/www/html/
       owner: apache
       group: apache
