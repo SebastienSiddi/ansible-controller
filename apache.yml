@@ -1,0 +1,27 @@
+- name: Installation d'un serveur apache et d'un projet gatsby
+
+  hosts: ec2
+
+  become: true
+
+  tasks:
+
+  - name: Installation du serveur apache
+    ansible.builtin.yum:
+      name: httpd
+      state: present
+  
+  - name: Copie du projet gatsby
+    ansible.builtin.copy:
+      src: /home/s1e3b/Ansible/ansible-controller/ressources/projet-gatsby/public/
+      dest: /var/www/html/
+      owner: apache
+      group: apache
+      mode: '0755'
+      remote_src: yes
+      
+  - name: Démarrage du serveur apache
+    ansible.builtin.service:
+      name: httpd
+      state: started
+      enabled: yes
