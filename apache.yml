@@ -11,19 +11,14 @@
       name: httpd
       state: present
 
-  - name: Sélection du répertoire de travail
-    shell:
-      cmd: pwd
-    
   - name: Copie du projet gatsby
     ansible.builtin.copy:
-      src: ansible-controller/ressources/projet-gatsby/public/
+      src: "{{ playbook_dir }}/ressources/projet-gatsby/public/"
       dest: /var/www/html/
       owner: apache
       group: apache
       mode: '0755'
       remote_src: yes
-    delegate_to: 127.0.0.1
 
   - name: Démarrage du serveur apache
     ansible.builtin.service:
