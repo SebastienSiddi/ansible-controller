@@ -30,11 +30,13 @@
       apt_key:
         url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
         state: present
+      when: ansible_facts['os_family'] | lower == 'debian'
 
     - name: "Add nodejs 18.x ppa for apt repo"
       apt_repository:
         repo: deb https://deb.nodesource.com/node_18.x bionic main
-        update_cache: yes  
+        update_cache: yes 
+      when: ansible_facts['os_family'] | lower == 'debian'
 
     - name: Installer les paquets pour de compilation, nodejs et npm sur OS 'redhat'
       yum:
