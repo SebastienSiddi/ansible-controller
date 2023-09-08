@@ -13,9 +13,11 @@
 
   - name: Copie du projet gatsby
     synchronize:
-      src:  "{{ playbook_dir }}/ressources/projet-gatsby/public/"
-      dest: /var/www/html
-      
+      src: "{{ playbook_dir }}/ressources/projet-gatsby/public/"
+      dest: /var/www/html/
+      mode: '0755'
+      remote_src: yes
+
   - name: Démarrage du serveur apache
     ansible.builtin.service:
       name: httpd
