@@ -1,6 +1,6 @@
 - name: Installation d'un serveur apache et d'un projet gatsby
 
-  hosts: ec2
+  hosts: vagrant
 
   become: true
 
@@ -10,18 +10,33 @@
     ansible.builtin.debug:
       var: ansible_facts
 
-  - name: Installation du serveur apache
+  - name: Installation du serveur apache sur OS amazon
     yum:
       name: httpd
       state: present
+    when: ansible_facts['os_family'] | lower == 'amazon'
+
+  - name: Installation du serveur apache sur OS debian
+    apt:
+      name: apache2
+      state: present
+    when: ansible_facts['os_family'] | lower == 'debian'
 
   - name: Copie du projet gatsby
     copy:
-      src: /home/ec2-user/ansible-controller/ressources/projet-gatsby/public/
+      src: ../ressources/projet-gatsby/public/
       dest: /var/www/html/
       
-  - name: Démarrage du serveur apache
+  - name: Démarrage du serveur apache sur OS amazon
     service:
       name: httpd
       state: started
       enabled: yes
+    when: ansible_facts['os_family'] | lower == 'amazon'
+
+  - name: Démarage du serveur apache sur OS debian
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+    when: ansible_facts['os_family'] | lower == 'debian'

@@ -1,31 +1,56 @@
+---
 - name: Installation de gatsby-cli
-
   hosts: ec2
-
   become: true
-
   tasks:
+    - name: Récupérer les facts et les stocker dans une variable    
+      debug:
+        var: ansible_facts
 
-  - name: Récupérer les facts et les stocker dans une variable    
-    ansible.builtin.debug:
-      var: ansible_facts
+    - name: Variables de paquets pour OS 'amazon'
+      set_fact:
+        amazon_packages:
+          - gcc-c++
+          - make
+          - nodejs
 
-  - name: Installer les paquets pour la compilation de Node.js
-    ansible.builtin.yum:
-      name:      
-        - gcc-c++
-        - make      
-      state: present
+    - name: Variables de paquets pour OS 'debian'
+      set_fact:
+        debian_packages:
+          - g++
+          - make
+          - nodejs         
 
-  - name: Installer Node.js
-    ansible.builtin.yum:
-      name: nodejs
-      state: present
-      enablerepo: epel
-  
-  - name: Installer gatsby-cli
-    ansible.builtin.npm:
-      name: gatsby-cli
-      global: yes
-  
-  
+    - name: Mettre à jour le gestionnaire de paquets sur OS 'debian'
+      apt:
+        update_cache: yes 
+      when: ansible_facts['os_family'] | lower == 'debian'
+
+    - name: "Add nodejs apt key"
+      apt_key:
+        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        state: present
+
+    - name: "Add nodejs 18.x ppa for apt repo"
+      apt_repository:
+        repo: deb https://deb.nodesource.com/node_18.x bionic main
+        update_cache: yes  
+
+    - name: Installer les paquets pour de compilation, nodejs et npm sur OS 'amazon'
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ amazon_packages }}"
+      when: ansible_facts['os_family'] | lower == 'amazon'
+
+    - name: Installer les paquets de compilation, nodejs et npm sur OS 'debian'
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ debian_packages }}"
+      when: ansible_facts['os_family'] | lower == 'debian'
+
+    - name: Installer gatsby-cli
+      npm:
+        name: gatsby-cli
+        global: yes
