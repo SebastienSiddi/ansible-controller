@@ -6,20 +6,15 @@
 
   tasks:
 
-  - name: Installation du serveur apache
-    yum:
-      name: httpd
-      state: present
-
-  - name: Ensure group "webhook" exists
-    group:
-      name: webhook
-      state: present
-
   - name: Copie du projet gatsby
     copy:
       src: /home/ec2-user/ansible-controller/ressources/projet-gatsby/public/
       dest: /var/www/html/
+
+  - name: Installation du serveur apache
+    yum:
+      name: httpd
+      state: present
       
   - name: Démarrage du serveur apache
     service:
