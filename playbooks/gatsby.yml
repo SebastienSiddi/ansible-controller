@@ -13,26 +13,28 @@
           - gcc-c++
           - make
           - nodejs
+      when: ansible_facts['os_family'] | lower == 'redhat'
 
     - name: Variables de paquets pour OS 'debian'
       set_fact:
         debian_packages:
           - g++
           - make
-          - nodejs         
+          - nodejs  
+      when: ansible_facts['os_family'] | lower == 'debian'       
 
     - name: Mettre à jour le gestionnaire de paquets sur OS 'debian'
       apt:
         update_cache: yes 
       when: ansible_facts['os_family'] | lower == 'debian'
 
-    - name: "Add nodejs apt key"
+    - name: Add nodejs apt key sur OS 'debian'
       apt_key:
         url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
         state: present
       when: ansible_facts['os_family'] | lower == 'debian'
 
-    - name: "Add nodejs 18.x ppa for apt repo"
+    - name: Add nodejs 18.x ppa for apt repo sur OS 'debian'
       apt_repository:
         repo: deb https://deb.nodesource.com/node_18.x bionic main
         update_cache: yes 
