@@ -6,6 +6,10 @@
 
   tasks:
 
+  - name: Récupérer les facts et les stocker dans une variable    
+    ansible.builtin.debug:
+      var: ansible_facts
+
   - name: Installer les paquets pour la compilation de Node.js
     ansible.builtin.yum:
       name:      
