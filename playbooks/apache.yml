@@ -10,11 +10,11 @@
     ansible.builtin.debug:
       var: ansible_facts
 
-  - name: Installation du serveur apache sur OS amazon
+  - name: Installation du serveur apache sur OS redhat
     yum:
       name: httpd
       state: present
-    when: ansible_facts['os_family'] | lower == 'amazon'
+    when: ansible_facts['os_family'] | lower == 'redhat'
 
   - name: Installation du serveur apache sur OS debian
     apt:
@@ -27,12 +27,12 @@
       src: ../ressources/projet-gatsby/public/
       dest: /var/www/html/
       
-  - name: Démarrage du serveur apache sur OS amazon
+  - name: Démarrage du serveur apache sur OS redhat
     service:
       name: httpd
       state: started
       enabled: yes
-    when: ansible_facts['os_family'] | lower == 'amazon'
+    when: ansible_facts['os_family'] | lower == 'redhat'
 
   - name: Démarage du serveur apache sur OS debian
     service:

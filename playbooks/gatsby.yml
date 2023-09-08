@@ -7,9 +7,9 @@
       debug:
         var: ansible_facts
 
-    - name: Variables de paquets pour OS 'amazon'
+    - name: Variables de paquets pour OS 'redhat'
       set_fact:
-        amazon_packages:
+        redhat_packages:
           - gcc-c++
           - make
           - nodejs
@@ -36,12 +36,12 @@
         repo: deb https://deb.nodesource.com/node_18.x bionic main
         update_cache: yes  
 
-    - name: Installer les paquets pour de compilation, nodejs et npm sur OS 'amazon'
+    - name: Installer les paquets pour de compilation, nodejs et npm sur OS 'redhat'
       yum:
         name: "{{ item }}"
         state: present
-      loop: "{{ amazon_packages }}"
-      when: ansible_facts['os_family'] | lower == 'amazon'
+      loop: "{{ redhat_packages }}"
+      when: ansible_facts['os_family'] | lower == 'redhat'
 
     - name: Installer les paquets de compilation, nodejs et npm sur OS 'debian'
       apt:
