@@ -2,7 +2,7 @@
 
   hosts: ec2
 
-  become: true
+  become: yes
 
   tasks:
 
