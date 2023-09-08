@@ -15,9 +15,8 @@
     synchronize:
       src: "{{ playbook_dir }}/ressources/projet-gatsby/public/"
       dest: /var/www/html/
-      owner: ec2-user
-      group: apache
-      mode: '0755'
+      owner: apache
+      group: apache    
       remote_src: yes
 
   - name: Démarrage du serveur apache
