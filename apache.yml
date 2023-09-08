@@ -13,7 +13,7 @@
 
   - name: Copie du projet gatsby
     copy:
-      src: "{{ playbook_dir }}/ressources/projet-gatsby/public/"
+      src: /home/ec2-user/ansible-controller/ressources/projet-gatsby/public/
       dest: /var/www/html/
 
   - name: Démarrage du serveur apache
