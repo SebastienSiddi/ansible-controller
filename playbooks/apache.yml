@@ -1,6 +1,6 @@
 - name: Installation d'un serveur apache et d'un projet gatsby
 
-  hosts: vagrant
+  hosts: ec2
 
   become: true
 
