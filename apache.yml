@@ -2,7 +2,7 @@
 
   hosts: ec2
 
-  become: yes
+  become: true
 
   tasks:
 
@@ -15,7 +15,8 @@
     copy:
       src: /home/ec2-user/ansible-controller/ressources/projet-gatsby/public/
       dest: /var/www/html/
-
+      remote_src: yes
+      
   - name: Démarrage du serveur apache
     service:
       name: httpd
