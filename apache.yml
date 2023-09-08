@@ -12,12 +12,9 @@
       state: present
 
   - name: Copie du projet gatsby
-    synchronize:
+    ansible.builtin.copy:
       src: "{{ playbook_dir }}/ressources/projet-gatsby/public/"
       dest: /var/www/html/
-      owner: apache
-      group: apache    
-      remote_src: yes
 
   - name: Démarrage du serveur apache
     ansible.builtin.service:
